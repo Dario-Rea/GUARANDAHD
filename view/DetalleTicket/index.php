@@ -66,11 +66,9 @@ if (isset($_SESSION["usu_id"])) {
                     <tr>
                       <th style="width: 90%;">Nombre</th>
                       <th class="text-center" style="width: 10%;">Ver</th>
-
                     </tr>
                   </thead>
                   <tbody>
-
                   </tbody>
                 </table>
               </fieldset>
@@ -86,9 +84,7 @@ if (isset($_SESSION["usu_id"])) {
           </div>
         </div>
         <section class="activity-line" id="lbldetalle">
-
         </section>
-
         <div class="box-typical box-typical-padding" id="pnldetalle">
           <p>
             Ingrese su duda o consulta
