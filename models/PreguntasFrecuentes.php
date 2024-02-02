@@ -1,7 +1,12 @@
+
 <?php
+/**
+ * Created by PhpStorm.
+ * User: drea
+ * Date: 03/29/2022
+ * Time: 12:46
+ */
     class PreguntasFrecuentes extends Conectar{
-
-
         public function listar_preguntasfrecuentes(){
             $conectar= parent::conexion();
             parent::set_names();

@@ -111,7 +111,7 @@ if (isset($_SESSION["usu_id"])) {
 
       </div>
     </div>
-    <!-- Contenido -->
+    <!-- Contenido del codigo-->
 
     <?php require_once("../MainJs/js.php"); ?>
 
