@@ -1,5 +1,4 @@
 <?php
-
 /*error_reporting(E_ALL); // Error/Exception engine, always use E_ALL
 
 ini_set('ignore_repeated_errors', TRUE); // always use TRUE

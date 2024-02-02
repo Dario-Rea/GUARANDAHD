@@ -9,6 +9,6 @@
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }
-
+        /*fin de comentario*/
     }
 ?>
