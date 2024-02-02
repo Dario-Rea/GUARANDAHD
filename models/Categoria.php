@@ -1,6 +1,6 @@
 <?php
     class Categoria extends Conectar{
-
+        /*Consulta las categorias de la DB*/
         public function get_categoria(){
             $conectar= parent::conexion();
             parent::set_names();
