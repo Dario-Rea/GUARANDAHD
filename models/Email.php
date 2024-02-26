@@ -13,8 +13,8 @@ require_once("../models/Ticket.php");
 require_once("../models/Usuario.php");
 
 class Email extends PHPMailer{
-    protected $gcorreo ='drea@guarandaltda.fin.ec'; // Variable que contiene el correo destinario
-    protected $gContrasena ='atic2018';// clave del contiene la contraseña del destinario
+    protected $gcorreo ='facturacionelectronica@guarandaltda.fin.ec'; // Variable que contiene el correo destinario
+    protected $gContrasena ='cgda19701';// clave del contiene la contraseña del destinario
 
     public function ticket_abierto($tick_id){
         $ticket = new Ticket();
@@ -172,7 +172,7 @@ class Email extends PHPMailer{
         $this-> FromName= "Ticket Asignado";
         $this-> CharSet= 'UTF8';
         $this-> AddAddress($correo);
-        $this-> AddAddress("readario94@gmail.com");
+        //$this-> AddAddress("readario94@gmail.com");
         $this-> WordWrap=50;
         $this-> IsHTML(true);
         $this->Subject= "Ticket Asignado";

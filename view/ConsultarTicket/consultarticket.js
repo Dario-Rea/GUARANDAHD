@@ -193,7 +193,7 @@ function CambiarEstado(tick_id){
 }
 
 function ver(tick_id){
-    window.open('http://175.100.100.2:8080/GUARANDAHD/view/DetalleTicket/?ID='+ tick_id +'');
+    window.open('http://175.100.100.30/GUARANDAHD/view/DetalleTicket/?ID='+ tick_id +'');
 }
 
 init();

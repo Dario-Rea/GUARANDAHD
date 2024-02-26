@@ -17,7 +17,7 @@
 
         protected function Conexion(){
             try {
-				$conectar = $this->dbh = new PDO("mysql:local=175.100.100.2;dbname=guarandahd","admin","admin");
+				$conectar = $this->dbh = new PDO("mysql:local=localhost;dbname=guarandahd","admin","admin");
 				return $conectar;	
 			} catch (Exception $e) {
 				print "¡Error BD!: " . $e->getMessage() . "<br/>";

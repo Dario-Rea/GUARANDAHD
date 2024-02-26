@@ -175,7 +175,6 @@
         }
 
         public function update_usuario_pass($usu_id, $usu_pass, $pass_actual){
-
             $conectar= parent::conexion();
             parent::set_names();
             $sql="UPDATE tm_usuario
@@ -186,6 +185,18 @@
             $sql->bindValue(1, $usu_pass);
             $sql->bindValue(2, $usu_id);
             $sql->bindValue(3, $pass_actual);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
+
+        public function reset_usuario_pass( $usu_correo){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="UPDATE tm_usuario
+            set usu_pass= md5(123456)
+            where usu_correo= ?";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $usu_correo);
             $sql->execute();
             return $resultado=$sql->fetchAll();
         }

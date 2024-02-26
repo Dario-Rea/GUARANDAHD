@@ -27,10 +27,14 @@ $(document).on("click","#btnrecuperar", function(){
             if (data=='[]'){
                 Toast.fire({
                     icon: 'error',
-                    title: ' Usuario no Registrado'
+                    title: ' Correo o Usuario no Registrado'
                 }
                 );
             }else{
+                $.post("../controller/usuario.php?op=resetearPassword", { usu_correo : usu_correo}, function(data){
+                    $('#usu_correo').val('');
+                });
+                
                 $.post("../controller/email.php?op=send_recuperar", { usu_correo : usu_correo}, function(data){
                     $('#usu_correo').val('');
                 });

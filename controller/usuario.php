@@ -15,7 +15,6 @@
         break;
 
         case "regitroUsuario":
-     
             $datos = $usuario->get_correo_usuario($_POST["usu_correo"]);
             if($_POST["usu_pass1"] == $_POST["usu_pass2"]){
                 if(is_array($datos)==true and count($datos)==0){
@@ -135,6 +134,10 @@
 
         case "actualizarPassword";
         $usuario->update_usuario_pass($_POST["usu_id"], $_POST["usu_pass"], $_POST["pass_actual"]);
+        break;
+
+        case "resetearPassword";
+        $usuario->reset_usuario_pass($_POST["usu_correo"]);
 
         break;
 
