@@ -100,10 +100,10 @@
         public function get_usuario_x_rol(){
             $conectar= parent::conexion();
             parent::set_names();
-            $sql="select * from tm_usuario where est=1 and rol_id=2";
+            $sql="SELECT * from tm_usuario where est=1 and rol_id=2";
             $sql=$conectar->prepare($sql);
             $sql->execute();
-            return $resultado=$sql->fetchAll();
+            return $resultado= $sql->fetchAll();
         }
 		public function get_correo_usuario($usu_correo){
 

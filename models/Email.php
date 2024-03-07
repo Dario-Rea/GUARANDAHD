@@ -70,7 +70,6 @@ class Email extends PHPMailer{
             $cat= $row["cat_nom"];
             $prioridad= $row["tick_prioridad"];
             $correo= $row["usu_correo"];
-
         }
         //IGUAL//
         $this->SMTPDebug= 0;
@@ -101,6 +100,50 @@ class Email extends PHPMailer{
         $this->Body=$cuerpo;
 
         $this->AltBody= strip_tags("Solicitud de Ticket Nuevo");
+        return $this->Send();
+    }
+    public function aviso_Respuestaticket($tick_id){
+        $ticket = new Ticket();
+        $datos = $ticket->devuelveRespuesta($tick_id);
+        foreach($datos as $row){
+            $id= $row["tick_id"];
+            $usu_correo= $row["correo"];
+            $titulo= $row["tick_titulo"];
+            $tickd_descrip= strip_tags($row["tickd_descrip"]);
+            $usu= $row["usu_nom"];
+            $apellido= $row["usu_ape"];
+            $usut= $row["nombret"];
+            $apellidot= $row["apell_t"];
+        }
+        //IGUAL//
+        $this->SMTPDebug= 0;
+        $this->IsSMTP();
+        $this-> Host= 'smtp.gmail.com'; //Aqui el server
+        $this-> Port =587;//Aqui va el puerto
+        $this-> SMTPAuth= true;//Aqui se sindica si se va a utilizar autenticacion
+        $this-> Username= $this->gcorreo;
+        $this-> Password= $this->gContrasena;
+        $this-> From= $this->gcorreo;
+        $this-> SMTPSecure= 'tls';
+        $this-> FromName= "Respuesta Nuevo";
+        $this-> CharSet= 'UTF8';
+        $this-> AddAddress($usu_correo);
+        $this-> WordWrap=50;
+        $this-> IsHTML(true);
+        $this->Subject= "Respuesta nueva de Ticket de ".$titulo;
+        //IGUAL//
+        $cuerpo = file_get_contents('../public/RespuestaTicket.html');
+        /*parametro del template a reemplazar*/
+        $cuerpo = str_replace("Solicitaticket", $usu.' '.$apellido, $cuerpo);
+        $cuerpo = str_replace("idticket", $id, $cuerpo);
+        $cuerpo = str_replace("TecnicoNom", $usut.' '.$apellidot, $cuerpo);
+        $cuerpo = str_replace("lblAsunto", $titulo, $cuerpo);
+        $cuerpo = str_replace("lblDescripcion", $tickd_descrip, $cuerpo);
+
+
+        $this->Body=$cuerpo;
+
+        $this->AltBody= strip_tags("Respuesta de Ticket ");
         return $this->Send();
     }
     public function ticket_cerrado($tick_id){
@@ -149,7 +192,8 @@ class Email extends PHPMailer{
     }
     public function ticket_asignado($tick_id){
         $ticket = new Ticket();
-  
+        $usuario = new Usuario();
+
         $datos = $ticket->listar_ticket_x_id($tick_id);
         foreach($datos as $row){
             $id= $row["tick_id"];
@@ -158,6 +202,11 @@ class Email extends PHPMailer{
             $cat= $row["cat_nom"];
             $prioridad= $row["tick_prioridad"];
             $correo= $row["usu_correo"];
+            $usuario_asig= $row["usu_asig"];
+        }
+        $usuarioasig=$usuario->get_usuario_x_id($usuario_asig);
+        foreach($usuarioasig as $rw){
+            $correo_asignado= $rw["usu_correo"];
         }
         //IGUAL//
         $this->SMTPDebug= 0;
@@ -172,7 +221,7 @@ class Email extends PHPMailer{
         $this-> FromName= "Ticket Asignado";
         $this-> CharSet= 'UTF8';
         $this-> AddAddress($correo);
-        //$this-> AddAddress("readario94@gmail.com");
+        $this-> AddAddress($correo_asignado);
         $this-> WordWrap=50;
         $this-> IsHTML(true);
         $this->Subject= "Ticket Asignado";
@@ -269,5 +318,4 @@ class Email extends PHPMailer{
 
     }
 }
-
 ?>

@@ -42,7 +42,8 @@
                 INNER join tm_usuario on tm_ticket.usu_id = tm_usuario.usu_id
                 WHERE
                 tm_ticket.est = 1
-                AND tm_usuario.usu_id=?";
+                AND tm_usuario.usu_id=?
+                order by tm_ticket.tick_id desc ";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1, $usu_id);
             $sql->execute();
@@ -61,6 +62,7 @@
                 tm_ticket.tick_descrip,
                 tm_ticket.tick_estado,
                 tm_ticket.fech_crea,
+                tm_ticket.usu_asig,
                 tm_usuario.usu_nom,
                 tm_usuario.usu_ape,
                 tm_categoria.cat_nom,
@@ -72,6 +74,23 @@
                 WHERE
                 tm_ticket.est = 1
                 AND tm_ticket.tick_id = ?";
+            $sql=$conectar->prepare($sql);
+            $sql->bindValue(1, $tick_id);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
+        public function devuelveRespuesta($tick_id){
+            $conectar= parent::conexion();
+            parent::set_names();
+            $sql="SELECT  
+                    case when t.usu_id=dt.usu_id then ua.usu_correo 
+                    else u.usu_correo end correo, dt.tickd_descrip,t.tick_id,t.tick_titulo,u.usu_nom, u.usu_ape, ua.usu_nom nombret,  ua.usu_ape apell_t
+                    from td_ticketdetalle dt
+                    inner join tm_ticket t on t.tick_id=dt.tick_id
+                    inner join tm_usuario u on u.usu_id=t.usu_id
+                    inner join tm_usuario ua on ua.usu_id=t.usu_asig
+                    where t.tick_id= ? and tickd_descrip<>'Ticket Cerrado...'
+                    ORDER BY tickd_id desc limit 1";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1, $tick_id);
             $sql->execute();
@@ -101,6 +120,7 @@
                 INNER join tm_usuario on tm_ticket.usu_id = tm_usuario.usu_id
                 WHERE
                 tm_ticket.est = 1
+                order by tm_ticket.tick_id desc
                 ";
             $sql=$conectar->prepare($sql);
             $sql->execute();
