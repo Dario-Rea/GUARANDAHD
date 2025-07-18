@@ -250,8 +250,8 @@ class Email extends PHPMailer{
         $this-> SMTPSecure= 'tls';
         $this-> FromName= "Recuperar Clave";
         $this-> CharSet= 'UTF8';
-        $this-> AddAddress($correo);
-        //$this-> AddAddress("readario94@gmail.com");
+        //$this-> AddAddress($correo); habilitar eb proudccion
+        $this-> AddAddress("readario94@gmail.com");
         $this-> WordWrap=50;
         $this-> IsHTML(true);
         $this->Subject= "Recuperar Clave Help Desk :: Guaranda";
